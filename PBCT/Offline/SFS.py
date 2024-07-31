@@ -97,16 +97,16 @@ def Sequential_Forward_Selection_corr(Features,labeled_X,labled_Y,random_index,L
                 predict_y = labled_Y.iloc[j]
                 tmp_Y = labled_Y.drop(random_index[j])
                 print(tmp_X)
-                mean_labled_x = tmp_X.mean()
-                print(mean_labled_x)
-                std_labled_x = tmp_X.std()
-                mean_labled_y = tmp_Y.mean()
-                std_labled_y = tmp_Y.std()
+                mean_labeled_x = tmp_X.mean()
+                print(mean_labeled_x)
+                std_labeled_x = tmp_X.std()
+                mean_labeled_y = tmp_Y.mean()
+                std_labeled_y = tmp_Y.std()
                 ##Normalize##
-                X_train_tmp = (tmp_X - mean_labled_x)/std_labled_x
+                X_train_tmp = (tmp_X - mean_labeled_x)/std_labeled_x
                 print(X_train_tmp)
-                y_train_tmp = (tmp_Y-mean_labled_y)/std_labled_y
-                predict_x = (predict_x-mean_labled_x)/std_labled_x
+                y_train_tmp = (tmp_Y-mean_labeled_y)/std_labeled_y
+                predict_x = (predict_x-mean_labeled_x)/std_labeled_x
 
 
                 #print(tmp_X.to_numpy())
@@ -116,7 +116,7 @@ def Sequential_Forward_Selection_corr(Features,labeled_X,labled_Y,random_index,L
                 #print('beta',beta)
                 #print(predict_x)
                 alpha_y = model.predict([predict_x])
-                real_alpha_y = (alpha_y[0]*std_labled_y+mean_labled_y).to_numpy()
+                real_alpha_y = (alpha_y[0]*std_labeled_y+mean_labeled_y).to_numpy()
                 print('alpha_y',real_alpha_y[0])
 
                 tmp_error = (predict_y.to_numpy()[0] - real_alpha_y[0])
@@ -142,13 +142,22 @@ def Sequential_Forward_Selection_corr(Features,labeled_X,labled_Y,random_index,L
 def Sequential_Forward_Selection_corr_test(Features,labeled_X,labled_Y,random_index,L,R):
     """
     The input should be original Labeled X, y
+    inputs:
+    Features: include all feature candidates
+    labled_X: Labeled X
+    labled_Y: Labeled Y
+    random_index: random index
+    L: number of labeled data
+    R: L-2
+    outputs:
+    Feature_set: best feature set
+    curr_error_nor: corresponding normalized error using the chosen feature set
     """
-    
-    
+    # 初始化最优特征集合和候选特征集合
     Feature_set = []
     Feature_candidates = copy.deepcopy(Features)
     
-    for i in range(R):
+    for i in range(R): # 迭代选择特征
         error_list = []
         err_nor_list = []
         for tmp_Feature in Feature_candidates:
@@ -166,17 +175,17 @@ def Sequential_Forward_Selection_corr_test(Features,labeled_X,labled_Y,random_in
                 predict_y = labled_Y.iloc[j]
                 tmp_Y = labled_Y.drop(random_index[j])
                 print(tmp_X)
-                mean_labled_x = tmp_X.mean()
-                print(mean_labled_x)
-                std_labled_x = tmp_X.std()
-                mean_labled_y = tmp_Y.mean()
-                std_labled_y = tmp_Y.std()
+                mean_labeled_x = tmp_X.mean()
+                print(mean_labeled_x)
+                std_labeled_x = tmp_X.std()
+                mean_labeled_y = tmp_Y.mean()
+                std_labeled_y = tmp_Y.std()
                 ##Normalize##
-                X_train_tmp = (tmp_X - mean_labled_x)/std_labled_x
+                X_train_tmp = (tmp_X - mean_labeled_x)/std_labeled_x
                 print(X_train_tmp)
-                y_train_tmp = (tmp_Y-mean_labled_y)/std_labled_y
-                predict_x = (predict_x-mean_labled_x)/std_labled_x
-                predict_y_nor = (predict_y-mean_labled_y)/std_labled_y
+                y_train_tmp = (tmp_Y-mean_labeled_y)/std_labeled_y
+                predict_x = (predict_x-mean_labeled_x)/std_labeled_x
+                predict_y_nor = (predict_y-mean_labeled_y)/std_labeled_y
 
 
                 #print(tmp_X.to_numpy())
@@ -186,7 +195,7 @@ def Sequential_Forward_Selection_corr_test(Features,labeled_X,labled_Y,random_in
                 #print('beta',beta)
                 #print(predict_x)
                 alpha_y = model.predict([predict_x])
-                real_alpha_y = (alpha_y[0]*std_labled_y+mean_labled_y).to_numpy()
+                real_alpha_y = (alpha_y[0]*std_labeled_y+mean_labeled_y).to_numpy()
                 print('alpha_y',real_alpha_y[0])
 
                 tmp_error = (predict_y.to_numpy()[0] - real_alpha_y[0])

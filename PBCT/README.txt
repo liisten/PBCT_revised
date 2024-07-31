@@ -33,6 +33,10 @@ As four scenarios have been considered in this work, we provide four scripts acc
     - Online/PBCT_online.py
     - Unlabeled_Offline/PBCT_offline_unlabeled.py
     - Unlabeled_Online/PBCT_online_unlabeled.py
-The impact of labeled training data size in the offline scenario can be evaluated through executing Offline/PBCT_offline.py. The impact of labeled training data size in the online scenario can be evaluated through executing Online/PBCT_online.py. The impact of unlabeled training data size in the offline scenario can be evaluated through executing Unlabeled_Offline/PBCT_offline_unlabeled.py. The impact of unlabeled training data size in the online scenario can be evaluated through executing Unlabeled_Online/PBCT_online_unlabeled.py. The results of the baseline methods considered in these scenarios can also be obtained through executing the corresponding scripts.
+The impact of labeled training data size in the offline scenario can be evaluated through executing Offline/PBCT_offline.py.
+The impact of labeled training data size in the online scenario can be evaluated through executing Online/PBCT_online.py.
+The impact of unlabeled training data size in the offline scenario can be evaluated through executing Unlabeled_Offline/PBCT_offline_unlabeled.py.
+The impact of unlabeled training data size in the online scenario can be evaluated through executing Unlabeled_Online/PBCT_online_unlabeled.py.
+The results of the baseline methods considered in these scenarios can also be obtained through executing the corresponding scripts.
 
 

@@ -75,7 +75,7 @@ def solve_loss(y,XL,ZL,XU,ZU,l1,l2,l3,l4,l5):
     m.setParam('MIPGap',0.01)
     m.setParam('TimeLimit', 20)
     #m.setParam('Threads',16)
-
+    m.setParam('OutputFlag', 0) # 不输出求解日志
 
     m.optimize()
     #m.computeIIS()

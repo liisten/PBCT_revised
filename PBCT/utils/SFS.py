@@ -165,15 +165,15 @@ def Sequential_Forward_Selection_corr_test(Features,labeled_X,labled_Y,random_in
                 tmp_X = tmp_X_all.drop(random_index[j])
                 predict_y = labled_Y.iloc[j]
                 tmp_Y = labled_Y.drop(random_index[j])
-                print(tmp_X)
+                # print(tmp_X)
                 mean_labled_x = tmp_X.mean()
-                print(mean_labled_x)
+                # print(mean_labled_x)
                 std_labled_x = tmp_X.std()
                 mean_labled_y = tmp_Y.mean()
                 std_labled_y = tmp_Y.std()
                 ##Normalize##
                 X_train_tmp = (tmp_X - mean_labled_x)/std_labled_x
-                print(X_train_tmp)
+                # print(X_train_tmp)
                 y_train_tmp = (tmp_Y-mean_labled_y)/std_labled_y
                 predict_x = (predict_x-mean_labled_x)/std_labled_x
                 predict_y_nor = (predict_y-mean_labled_y)/std_labled_y
@@ -187,7 +187,7 @@ def Sequential_Forward_Selection_corr_test(Features,labeled_X,labled_Y,random_in
                 #print(predict_x)
                 alpha_y = model.predict([predict_x])
                 real_alpha_y = (alpha_y[0]*std_labled_y+mean_labled_y).to_numpy()
-                print('alpha_y',real_alpha_y[0])
+                # print('alpha_y',real_alpha_y[0])
 
                 tmp_error = (predict_y.to_numpy()[0] - real_alpha_y[0])
                 tmp_error_nor = alpha_y[0]-predict_y_nor.to_numpy()[0]
@@ -196,6 +196,7 @@ def Sequential_Forward_Selection_corr_test(Features,labeled_X,labled_Y,random_in
                 tmp_err_nor_square = tmp_error_nor * tmp_error_nor
                 LOO_list.append(tmp_error_square)
                 LOO_nor_list.append(tmp_err_nor_square)
+            print(tmp_Feature_set)
             print(LOO_list)
             error_list.append(np.mean(LOO_list))
             err_nor_list.append(np.mean(LOO_nor_list))

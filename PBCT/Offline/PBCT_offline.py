@@ -9,6 +9,7 @@ import math
 import sklearn
 import random
 import matplotlib.pyplot as plt
+import os
 
 
 def PBCT_log(csv_name,L,U,random_index,repeated_num,coef_file):
@@ -22,7 +23,7 @@ def PBCT_log(csv_name,L,U,random_index,repeated_num,coef_file):
 
     """
 
-    data_samples = pd.read_csv(csv_name+'.csv',index_col=FALSE)
+    data_samples = pd.read_csv('../Data/' + csv_name +'.csv',index_col=FALSE)
     data_shape = data_samples.shape
     data_columnslable_x = data_samples.columns[:-2]
     data_columnslable_y = data_samples.columns[-1:]
@@ -266,12 +267,14 @@ def PBCT_log(csv_name,L,U,random_index,repeated_num,coef_file):
     return PBCT_RMSE,  PBCT_beta_RMSE,LS_beta_RMSE,LS_lasso_RMSE,LS_elasnet_RMSE
 
 if __name__=="__main__":
-    repeated_num = 200
+    repeated_num = 10
     coef_file = './tmp_coef_file/'
+    if not os.path.exists(coef_file):
+        os.makedirs(coef_file)
     all_average = {}
     all_median = {}
-    csv_name = '../Data/pri_20_feature'
-    file_name =   'tmp_file'
+    csv_name = 'pri_20_feature'
+    file_name =  'tmp_file'
     unlabeled_num = 25
     data_num = 43
     random_index = [random.sample(range(data_num),data_num) for i in range(repeated_num)]
@@ -290,11 +293,13 @@ if __name__=="__main__":
         all_average[sweep_num] = average_array
         all_median[sweep_num] = median_array
         df = pd.DataFrame(tmp_dict)
-        df.to_csv('./'+file_name+'/'+csv_name+'_result_PBCT_'+str(sweep_num)+'_offline.csv',index=False)
+        if not os.path.exists(file_name):
+            os.mkdir(file_name)
+        df.to_csv('./'+file_name+'/'+csv_name+'_result_PBCT_'+str(sweep_num)+'_offline.csv', index=False)
     avg_all = pd.DataFrame(all_average)
     median_all = pd.DataFrame(all_median)
-    avg_all.to_csv('./'+file_name+'/offline_avg'+'.csv',index = False)
-    median_all.to_csv('./'+file_name+'/offline_median'+'.csv',index = False)
+    avg_all.to_csv('./'+file_name+'/offline_avg'+'.csv', index = False)
+    median_all.to_csv('./'+file_name+'/offline_median'+'.csv', index = False)
 
 
 
