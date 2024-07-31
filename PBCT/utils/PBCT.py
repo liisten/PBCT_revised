@@ -47,7 +47,7 @@ def PBCT(L,random_index,repeated_num,coef_file,data_labeled,data_unlabeled,data_
     #################
 
     ####build Partial model####
-    Partial_feature_var2 = Sequential_Forward_Selection_corr_test(data_columnslabel_x,data_labeled_x,data_labeled_y,random_index,L,L-2)
+    Partial_feature_var2 = Sequential_Forward_Selection_corr_test(data_columnslabel_x,data_labeled_x,data_labeled_y,random_index,L,7)
     Partial_feature = Partial_feature_var2[0]
     print(Partial_feature)
 
@@ -198,8 +198,12 @@ if __name__=="__main__":
     repeated_num = 50
     all_average = {}
     all_median = {}
-    labeled_data_csv_name = r'D:\WangQiao\labeled_data.xlsx'
-    unlabeled_data_csv_name = r'D:\WangQiao\unlabeled_data.xlsx'
+    # run on 160 features
+    # labeled_data_csv_name = r'D:\WangQiao\labeled_data.xlsx'
+    # unlabeled_data_csv_name = r'D:\WangQiao\unlabeled_data.xlsx'
+    # run on 8 features
+    labeled_data_csv_name = r'D:\WangQiao\labeled_data_ave.xlsx'
+    unlabeled_data_csv_name = r'D:\WangQiao\unlabeled_data_ave.xlsx'
     labeled_data_samples = pd.read_excel(labeled_data_csv_name,index_col=0)
     unlabeled_data_samples = pd.read_excel(unlabeled_data_csv_name,index_col=0)
 
@@ -218,7 +222,7 @@ if __name__=="__main__":
 
 
     data_columnslabel_x = labeled_data_samples.columns[:-1] # 除去最后1列
-    data_columnslabel_y = labeled_data_samples.columns[-1:] # 包含最后1列
+    data_columnslabel_y = labeled_data_samples.columns[-1:] # 选择最后1列
 
     # train_index = random_index[repeated_num][:data_num-test_num]
     # test_index = random_index[repeated_num][data_num-test_num:]
